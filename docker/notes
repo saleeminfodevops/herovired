@@ -1,0 +1,86 @@
+testing@inblrlt-002:~/Downloads$ gpg --generate-key
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Note: Use "gpg --full-generate-key" for a full featured key generation dialog.
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: FalconTechGuru
+Email address: falcontechguru@gmail.com
+You selected this USER-ID:
+    "FalconTechGuru <falcontechguru@gmail.com>"
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key 979045E55C1B10C4 marked as ultimately trusted
+gpg: directory '/home/testing/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/testing/.gnupg/openpgp-revocs.d/48EAECE48B81489896F8F67B979045E55C1B10C4.rev'
+public and secret key created and signed.
+
+pub   rsa3072 2026-04-25 [SC] [expires: 2028-04-24]
+      48EAECE48B81489896F8F67B979045E55C1B10C4
+uid                      FalconTechGuru <falcontechguru@gmail.com>
+sub   rsa3072 2026-04-25 [E] [expires: 2028-04-24]
+
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+Build Docker : docker build . -t saleemtmhv:v1.0
+Run Docker : docker run saleemtmhv:v1.0
+Run docker with custom variables (expose different port and DB url): docker run -p 3010:3001 -e MONGO_URL="mongodb+srv:/" saleemtmhv:v1.0
+
+Apr 26 2025
+
+My Ip 103.5.133.53
+User: falcontechguru_db_user
+pwd: P0WGlDYIkkYFwPJk
+
+python -m pip install "pymongo[srv]"
+
+mongodb+srv://falcontechguru_db_user:P0WGlDYIkkYFwPJk@cluster0.kjbshiw.mongodb.net/?appName=Cluster0
+
+##Docker HUB
+docker push falcontechgurudocker/saleemtmhv1.0
+
+
+#AWS ECR:
+
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m9u7p5r3
+
+docker tag 
+docker push aws_account_id.dkr.ecr.region.amazonaws.com/my-repository:tag
+
+docker push public.ecr.aws/m9u7p5r3/ftsawsrepo:latest
+
+docker push falcontechgurudocker/saleemtmhv1.0
+
+docker tag 6579e91c150c:latest public.ecr.aws/m9u7p5r3/ftsawsrepo:latest
+docker push public.ecr.aws/m9u7p5r3/ftsawsrepo:latest
+
+docker volume create mongodbdata
+
+docker run -d -p -v mongodbdata 27019:27017 mongo
+docker run -d -v mongodbdata:/data/db -p 27019:27017 mongo
+docker volume inspect 
+docker volume ls
+
+
+docker run -p 3010:3001 -e MONGO_URI="mongodb+srv://falcontechguru_db_user:PZcJm6cWe28XpNT7@cluster0.kjbshiw.mongodb.net/?appName=Cluster0" saleemtmhv:v1.0
+
+PZcJm6cWe28XpNT7
+
+jdbc:mongodb+srv://falcontechguru_db_user:<db_password>@cluster0.kjbshiw.mongodb.net/?appName=Cluster0
+jdbc:mongodb:Server=MyServer;Port=27017;Database=test;User=test;Password=Password;
+
+jdbc:mongodb+srv://falcontechguru_db_user:PZcJm6cWe28XpNT7@cluster0.kjbshiw.mongodb.net/?appName=Cluster0
