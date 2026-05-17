@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Replace with your Docker Hub username and repository name
+        DOCKER_REPO = "falcontechgurudocker/saleemtmhv1.0"
+        DOCKER_HUB_CREDENTIALS_ID = 'falcontechguru@gmail.com'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clones code from the repository linked to the Jenkins job
+                checkout scm
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Builds the image using the Dockerfile in the root directory
+                    appImage = docker.build("${DOCKER_REPO}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    // Authenticates using the stored credentials and pushes the image
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS_ID) {
+                        appImage.push("${env.BUILD_NUMBER}")
+                        appImage.push("latest")
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Optional: Clean up local images to save disk space
+            sh "docker rmi ${DOCKER_REPO}:${env.BUILD_NUMBER}"
+            sh "docker rmi ${DOCKER_REPO}:latest"
+        }
+    }
+}

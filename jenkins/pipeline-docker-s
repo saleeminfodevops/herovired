@@ -1,0 +1,72 @@
+pipeline {
+
+    agent any
+
+    environment {
+        GIT_REPO = "https://github.com/UnpredictablePrashant/b13html.git"
+        SSH_CRED_ID = "boto3-key"
+        EC2_USERNAME = "ubuntu"
+        EC2_HOST = "65.0.98.27"
+
+        DOCKER_CRED = "docker-hub-cred"
+        DOCKER_USERNAME = "smaheshwari91"   
+        IMAGE_NAME = "b13html"
+    }
+
+    stages {
+
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
+        stage("Git Checkout") {
+            steps {
+                deleteDir()
+                git branch: 'main', url: "${GIT_REPO}"
+            }
+        }
+
+        stage("Pull Docker Image") {
+            steps {
+                sh '''
+                echo "Pulling nginx image..."
+                docker pull nginx:latest
+                '''
+            }
+        }
+
+        stage("Tag Image") {
+            steps {
+                sh """
+                echo "Tagging image..."
+                docker tag nginx:latest ${DOCKER_USERNAME}/${IMAGE_NAME}:latest
+                """
+            }
+        }
+
+        stage("Push to DockerHub") {
+            steps {
+                script {
+                    docker.withRegistry('', "${DOCKER_CRED}") {
+                        sh "docker push ${DOCKER_USERNAME}/${IMAGE_NAME}:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Copy files to EC2') {
+            steps {
+                sshagent(credentials: ["${SSH_CRED_ID}"]) {
+                    sh """
+                    echo "Copying files to EC2..."
+                    scp -o StrictHostKeyChecking=no -r * ${EC2_USERNAME}@${EC2_HOST}:/home/ubuntu
+                    echo "✅ Copy completed"
+                    """
+                }
+            }
+        }
+
+    }
+}

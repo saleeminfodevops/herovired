@@ -1,0 +1,126 @@
+pipeline {
+    agent any
+    
+    parameters{
+        string(name: 'BRANCH_NAME', defaultValue: 'main')
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'prod'])
+    }
+    
+    environment {
+        GIT_REPO = "https://github.com/UnpredictablePrashant/b13html.git"
+        SSH_CRED_ID = "pk-batch16a-aws-demo"
+        EC2_USERNAME = "ubuntu"
+        EC2_HOST = "13.206.82.140"
+        DOCKER_IMAGE = "prashantdey/testimage"
+    }
+
+    stages {
+        stage('Hello') {
+            when {
+                // expression {
+                //     return params.ENVIRONMENT == 'dev'
+                // }
+                // allOf {
+                //     expression {
+                //         params.ENVIRONMENT == 'prod'
+                //     }
+                //     expression {
+                //         params.BRANCH_NAME == 'main'
+                //     }
+                // }
+                anyOf {
+                    expression {
+                        params.ENVIRONMENT == 'prod'
+                    }
+                    expression {
+                        params.BRANCH_NAME == 'main'
+                    }
+                }
+            }
+            steps {
+                echo 'Hello World'
+                echo "${params.BRANCH_NAME}"
+            }
+        }
+        stage("Git Checkout"){
+            steps{
+                git branch: "${params.BRANCH_NAME}",   url: "${env.GIT_REPO}"
+            }
+        }
+        stage("Parallel stages example"){
+            parallel{
+                stage("Wonderful") {
+                    steps {
+                        sh """
+                        ls -al
+                        pwd
+                        """
+                    }
+                }
+                stage("Test"){
+                    steps{
+                        sh"""
+                        whoami
+                        """
+                    }
+                }
+                
+            }
+        }
+        
+        // stage('Copy files to Ec2'){
+        //     steps{
+        //         sshagent(credentials: ["${env.SSH_CRED_ID}"]) {
+        //           sh '''
+        //               scp -o StrictHostKeyChecking=no -r * ${EC2_USERNAME}@${EC2_HOST}:/home/ubuntu
+        //           '''
+        //         }
+        //     }
+        // }
+        // stage("Copy files to /var/www/html"){
+        //     steps{
+        //         sshagent(credentials: ["${env.SSH_CRED_ID}"]) {
+        //           sh '''
+        //               ssh -o StrictHostKeyChecking=no ${EC2_USERNAME}@${EC2_HOST} '
+        //                 sudo cp -r * /var/www/html
+        //               '
+        //           '''
+        //         }
+        //     }
+        // }
+        // stage('Docker Build'){
+        //     steps{
+        //         script{
+        //             docker.build("${env.DOCKER_IMAGE}")
+        //         }
+        //     }
+        //     steps{
+        //          docker.withRegistry('', 'credentials-id') {
+        //             def customImage = docker.build("{env.DOCKER_IMAGE}:${env.BUILD_ID}")
+        //             /* Push the container to the custom Registry */
+        //             customImage.push()
+        //         }
+        //     }
+        // }
+        
+    }
+    
+    post{
+        always{
+            echo "This will run always"
+        }
+        success{
+            echo "This will run only on success"
+            // sshagent(credentials: ["${env.SSH_CRED_ID}"]) {
+            //       sh '''
+            //           ssh -o StrictHostKeyChecking=no ${EC2_USERNAME}@${EC2_HOST} '
+            //             sudo cp -r * /var/www/html
+            //           '
+            //       '''
+            // }
+        }
+        failure{
+            echo "This will run only on failure"
+        }
+    }
+}

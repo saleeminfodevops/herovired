@@ -1,0 +1,15 @@
+scp -o StrictHostKeyChecking=no -r * ${EC2_USERNAME}@${EC2_HOST}:/home/ubuntu/
+
+
+create 2 branchs - github - done
+dev
+prod
+
+
+ec2 instance - done
+dev instance
+prod instance
+
+docker image
+dev - tag and build BUILD_NUMBER  don't push
+prod - tag and build BUILD_NUMBER

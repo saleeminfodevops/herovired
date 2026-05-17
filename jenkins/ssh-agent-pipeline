@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_REPO = "https://github.com/UnpredictablePrashant/b13html.git"
+        SSH_CRED_ID = "pk-batch16a-aws-demo"
+        EC2_USERNAME = "ubuntu"
+        EC2_HOST = "13.206.82.140"
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage("Git Checkout"){
+            steps{
+                git branch: 'main',   url: "${env.GIT_REPO}"
+            }
+        }
+        stage("Wonderful") {
+            steps {
+                sh """
+                ls -al
+                pwd
+                """
+            }
+        }
+        stage('Copy files to Ec2'){
+            steps{
+                sshagent(credentials: ["${env.SSH_CRED_ID}"]) {
+                  sh '''
+                      scp -o StrictHostKeyChecking=no -r * ${EC2_USERNAME}@${EC2_HOST}:/home/ubuntu
+                  '''
+                }
+            }
+        stage('Copy files to ec2'){
+            steps{
+                sshagent(credentials: ["${env.SSH_CRED_ID}"]) {
+                    ssh 
+            }
+        }    
+        }
+    }
+}
