@@ -1,0 +1,11 @@
+The Analogy Breakdown
+
+ Kubernetes Cluster = The Entire Hotel Resort The complete property, including the management offices, guest towers, and all infrastructure required to keep the business running.
+ Worker Node = A Hotel Tower (Building) A physical or virtual machine that provides the actual space and resources (electricity, water, floor room). A resort can have multiple towers to handle more guests.
+ Pod = A Hotel Suite (Room) The smallest rentable unit in the hotel. It has its own address (IP address) and shares a private environment (like a shared bathroom or kitchenette) for whoever is inside.
+ Container = An Individual Guest inside the Suite The actual application doing the work. Multiple guests (containers) can stay in one suite (pod) and share its resources, but they are isolated from guests in other suites
+
+
+24-may
+kubectl api-resources
+
