@@ -1,0 +1,25 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowReadingBillingCloudWatchMetrics",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:GetMetricData",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowPublishingToSNSTopics",
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish",
+                "sns:ListTopics",
+                "sns:GetTopicAttributes"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
