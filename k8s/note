@@ -9,3 +9,4 @@ The Analogy Breakdown
 24-may
 kubectl api-resources
 
+eksctl create cluster --name hv-cluster-1 --region ap-south-1 --nodegroup-name standard-workers --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3
