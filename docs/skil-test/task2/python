@@ -1,0 +1,21 @@
+sudo apt update
+sudo apt install python3-pip python3-venv -y
+
+mkdir saleem_flask_app && cd saleem_flask_app
+python3 -m venv venv
+source venv/bin/activate
+
+pip install Flask
+
+echo "
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def myname():
+    return "<p>Saleem Shaikh</p>"
+" > app.py
+
+flask run --host=0.0.0.0
+
