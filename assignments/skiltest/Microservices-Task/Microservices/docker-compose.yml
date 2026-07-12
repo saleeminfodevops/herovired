@@ -1,0 +1,45 @@
+services:
+  users:
+    container_name: user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - ms-net
+
+  product:
+    container_name: product-service
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    networks:
+      - ms-net
+
+  order:
+    container_name: order-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - 3002:3002
+    networks:
+      - ms-net
+   
+  gateway:
+    container_name: gateway-service
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - 3003:3003
+    networks:
+      - ms-net
+
+networks:
+  ms-net:
+    driver: bridge
+

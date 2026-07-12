@@ -10,3 +10,25 @@ The Analogy Breakdown
 kubectl api-resources
 
 eksctl create cluster --name hv-cluster-1 --region ap-south-1 --nodegroup-name standard-workers --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3
+
+13 jun 2026
+
+eksctl create cluster --name hv-cluster-1 --region ap-south-1 --nodegroup-name standard-workers --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3
+
+https://github.com/UnpredictablePrashant/LearningK8s.git
+
+https://hub.docker.com/r/prashantdey/appk8stutorial
+
+eksctl create cluster --name demo-k8slearning --version 1.36 --region us-east-2 --nodegroup-name standard-workers --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3
+
+https://github.com/UnpredictablePrashant/LearningK8s
+
+Need to focus: k8s objectives
+
+Deployment
+
+Scaling
+EKS
+Ingress
+
+RBAC

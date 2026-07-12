@@ -1,0 +1,11 @@
+terraform fmt
+
+terraform fmt -check
+
+terraform fmt -recursive
+terraform state list
+terraform destroy
+
+
+
+
