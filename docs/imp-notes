@@ -1,0 +1,9 @@
+terraform enterprise recover code K8BSLTB9WU9B2C51U6Y2F64Q
+
+jul 19
+
+sudo apt update 
+
+sudo apt install -y ansible
+
+ansible --version
